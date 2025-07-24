@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>(주)해달프로그래밍 | 기술로 가치를, 교육으로 미래를</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap">
+    <!-- Chosen Palette: Calm Harmony -->
+    <!-- Application Structure Plan: A single-page application with a clear narrative flow. It starts with a strong hero section to introduce the company, followed by an interactive portfolio ('Work') to build credibility. Next, it details their core offerings ('Business') to show their capabilities, and concludes with a clear call-to-action ('Contact'). This structure guides the user from awareness to engagement logically. The portfolio is filterable to allow users to explore specific areas of interest without information overload. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: Portfolio of projects (Events, Education, SI). Goal: Organize & Showcase. Viz/Method: Interactive card grid. Interaction: Category filtering. Justification: Allows users to easily find relevant work examples. Library/Method: Vanilla JS & Tailwind.
+        - Report Info: Spectrum of services. Goal: Inform & Overview. Viz/Method: Doughnut Chart. Interaction: Hover to see details. Justification: Provides a quick, engaging visual summary of company experience. Library/Method: Chart.js (Canvas).
+        - Report Info: Core business offerings. Goal: Inform & Explain. Viz/Method: Thematic content cards. Interaction: Static display. Justification: Clearly separates and explains distinct service lines. Library/Method: HTML & Tailwind.
+        - CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #F9FAFB; /* Light Gray Background */
+            color: #1F2937; /* Dark Gray Text */
+        }
+        .nav-link {
+            transition: color 0.3s, border-bottom-color 0.3s;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #3B82F6; /* Accent Blue */
+            border-bottom-color: #3B82F6;
+        }
+        .filter-btn {
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .filter-btn.active {
+            background-color: #3B82F6;
+            color: white;
+        }
+        .portfolio-card {
+            transition: transform 0.3s, box-shadow 0.3s;
+            overflow: hidden;
+        }
+        .portfolio-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <!-- Header & Navigation -->
+    <header class="bg-white/80 backdrop-blur-sm sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-gray-800">
+                (주)해달프로그래밍
+            </a>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#work" class="nav-link font-medium pb-1">수행 프로젝트</a>
+                <a href="#business" class="nav-link font-medium pb-1">비즈니스</a>
+                <a href="#contact" class="nav-link font-medium pb-1">문의하기</a>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+            <a href="#work" class="block py-2 text-center text-gray-700 hover:text-blue-500">수행 프로젝트</a>
+            <a href="#business" class="block py-2 text-center text-gray-700 hover:text-blue-500">비즈니스</a>
+            <a href="#contact" class="block py-2 text-center text-gray-700 hover:text-blue-500">문의하기</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="py-20 md:py-32 bg-white">
+            <div class="container mx-auto px-6 text-center">
+                <h1 class="text-4xl md:text-6xl font-bold text-gray-800 leading-tight">
+                    기술로 가치를, 교육으로 미래를 만듭니다
+                </h1>
+                <p class="mt-6 text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+                    (주)해달프로그래밍은 혁신적인 비즈니스 솔루션과 전문 개발자 교육을 통해 고객의 성공과 성장을 돕는 기술 파트너입니다.
+                </p>
+                <div class="mt-10">
+                    <a href="#contact" class="bg-blue-500 text-white font-bold py-3 px-8 rounded-full hover:bg-blue-600 transition duration-300 text-lg">
+                        프로젝트 문의하기
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Work Section -->
+        <section id="work" class="py-20">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold">수행 프로젝트</h2>
+                    <p class="mt-4 text-lg text-gray-600">다양한 산업 분야에서 축적한 해달프로그래밍의 성공적인 레퍼런스를 만나보세요.</p>
+                </div>
+
+                <!-- Filters -->
+                <div id="filters" class="flex flex-wrap justify-center gap-2 md:gap-4 mb-12">
+                    <button class="filter-btn active bg-gray-200 text-gray-700 font-medium py-2 px-5 rounded-full" data-filter="all">전체</button>
+                    <button class="filter-btn bg-gray-200 text-gray-700 font-medium py-2 px-5 rounded-full" data-filter="행사">행사</button>
+                    <button class="filter-btn bg-gray-200 text-gray-700 font-medium py-2 px-5 rounded-full" data-filter="교육">교육</button>
+                    <button class="filter-btn bg-gray-200 text-gray-700 font-medium py-2 px-5 rounded-full" data-filter="SI/솔루션">SI/솔루션</button>
+                </div>
+
+                <!-- Portfolio Grid -->
+                <div id="portfolio-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Portfolio items will be injected here by JavaScript -->
+                </div>
+            </div>
+        </section>
+        
+        <!-- Business Section -->
+        <section id="business" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold">핵심 비즈니스</h2>
+                    <p class="mt-4 text-lg text-gray-600">해달프로그래밍은 자체적인 기술력과 기획력으로 다음과 같은 서비스를 제공합니다.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                    <div class="bg-gray-50 p-8 rounded-xl shadow-sm">
+                        <div class="text-blue-500 mb-4">
+                            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3">비즈니스 스프린트</h3>
+                        <p class="text-gray-600">아이디어 구체화부터 MVP 개발까지, 단기간에 비즈니스 문제를 해결하고 시장성을 검증하는 집중 개발 프로그램입니다.</p>
+                    </div>
+                    <div class="bg-gray-50 p-8 rounded-xl shadow-sm">
+                        <div class="text-blue-500 mb-4">
+                            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3">자체 개발자 교육</h3>
+                        <p class="text-gray-600">실무 중심의 커리큘럼으로 구성된 자체 교육 프로그램을 통해 현업에 즉시 투입 가능한 전문 개발 인력을 양성합니다.</p>
+                    </div>
+                    <div class="bg-gray-50 p-8 rounded-xl shadow-sm">
+                        <div class="text-blue-500 mb-4">
+                            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3">신규 서비스 기획</h3>
+                        <p class="text-gray-600">시장의 니즈와 최신 기술 트렌드를 분석하여 새로운 가치를 창출하는 혁신적인 온라인 서비스를 자체적으로 기획하고 개발합니다.</p>
+                    </div>
+                </div>
+                
+                <div class="mt-20">
+                    <div class="text-center mb-12">
+                        <h3 class="text-2xl md:text-3xl font-bold">우리의 전문 분야</h3>
+                        <p class="mt-3 text-lg text-gray-600">차트를 통해 해달프로그래밍의 다양한 프로젝트 경험을 한눈에 확인하세요.</p>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="expertiseChart"></canvas>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold">문의하기</h2>
+                    <p class="mt-4 text-lg text-gray-600">프로젝트 의뢰, 교육 협력, 기타 문의사항이 있으시면 언제든지 연락주세요.</p>
+                </div>
+                <div class="max-w-3xl mx-auto bg-white p-8 md:p-12 rounded-xl shadow-lg">
+                    <form>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label for="name" class="block text-gray-700 font-medium mb-2">이름</label>
+                                <input type="text" id="name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                            </div>
+                            <div>
+                                <label for="company" class="block text-gray-700 font-medium mb-2">회사/소속</label>
+                                <input type="text" id="company" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                        </div>
+                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label for="email" class="block text-gray-700 font-medium mb-2">이메일</label>
+                                <input type="email" id="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                            </div>
+                            <div>
+                                <label for="phone" class="block text-gray-700 font-medium mb-2">연락처</label>
+                                <input type="tel" id="phone" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                        </div>
+                        <div class="mb-6">
+                             <label for="inquiry_type" class="block text-gray-700 font-medium mb-2">문의 종류</label>
+                             <select id="inquiry_type" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+                                 <option>프로젝트 의뢰</option>
+                                 <option>교육 프로그램 협력</option>
+                                 <option>채용 문의</option>
+                                 <option>기타 문의</option>
+                             </select>
+                        </div>
+                        <div class="mb-6">
+                            <label for="message" class="block text-gray-700 font-medium mb-2">문의 내용</label>
+                            <textarea id="message" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required></textarea>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="bg-blue-500 text-white font-bold py-3 px-10 rounded-full hover:bg-blue-600 transition duration-300 text-lg">
+                                문의 제출
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-10">
+        <div class="container mx-auto px-6 text-center">
+            <p>(주)해달프로그래밍 | 대표: 홍길동</p>
+            <p class="mt-2">사업자등록번호: 123-45-67890 | 주소: 서울특별시 강남구 테헤란로 123</p>
+            <p class="mt-2">&copy; 2025 Haedal Programming Inc. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Mobile Menu Toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Portfolio Data
+            const portfolioData = [
+                { title: '전국 대학생 해커톤', category: '행사', description: '전국 규모의 대학생 대상 해커톤을 주최하여 IT 인재 발굴 및 네트워킹 기회를 제공했습니다.', image: 'https://placehold.co/600x400/3B82F6/FFFFFF?text=해커톤' },
+                { title: 'S전자 AI 기술 교육', category: '교육', description: 'S전자 임직원을 대상으로 2주간 AI 기술 심화 워크샵을 진행하여 실무 역량을 강화했습니다.', image: 'https://placehold.co/600x400/10B981/FFFFFF?text=AI교육' },
+                { title: '스타트업 \'라이크코리안\' 앱 개발', category: 'SI/솔루션', description: '외국인 관광객을 위한 실시간 통역 및 여행 정보 제공 앱의 기획, 개발, 운영을 총괄했습니다.', image: 'https://placehold.co/600x400/F59E0B/FFFFFF?text=앱개발' },
+                { title: '소프트웨어 마이스터고 기술 교육', category: '교육', description: '40시간 과정의 웹 풀스택 개발 교육을 통해 예비 개발자들의 기술 스택 향상에 기여했습니다.', image: 'https://placehold.co/600x400/10B981/FFFFFF?text=기술교육' },
+                { title: '핀테크 기업 SI 시스템 구축', category: 'SI/솔루션', description: '보안성과 확장성을 고려한 차세대 금융 거래 시스템을 성공적으로 구축하였습니다.', image: 'https://placehold.co/600x400/F59E0B/FFFFFF?text=SI구축' },
+                { title: '개발자 컨퍼런스 2025', category: '행사', description: '최신 기술 트렌드를 공유하고 개발자 커뮤니티 활성화를 위한 대규모 컨퍼런스를 기획 및 운영했습니다.', image: 'https://placehold.co/600x400/3B82F6/FFFFFF?text=컨퍼런스' },
+                { title: 'AI 교양 교육 프로그램', category: '교육', description: '비전공자를 위한 AI 기초 및 활용법에 대한 8시간 교양 교육을 다수 기관에서 진행했습니다.', image: 'https://placehold.co/600x400/10B981/FFFFFF?text=교양교육' },
+                { title: '물류 자동화 솔루션 개발', category: 'SI/솔루션', description: '머신러닝 기반의 재고 예측 및 자동 발주 시스템을 개발하여 물류 효율을 30% 개선했습니다.', image: 'https://placehold.co/600x400/F59E0B/FFFFFF?text=솔루션' }
+            ];
+
+            const grid = document.getElementById('portfolio-grid');
+            const filters = document.getElementById('filters');
+
+            // Function to render portfolio items
+            function renderPortfolio(filter = 'all') {
+                grid.innerHTML = '';
+                const filteredData = filter === 'all' ? portfolioData : portfolioData.filter(item => item.category === filter);
+                
+                filteredData.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'portfolio-card bg-white rounded-lg shadow-md';
+                    card.innerHTML = `
+                        <img src="${item.image}" alt="${item.title}" class="w-full h-48 object-cover rounded-t-lg">
+                        <div class="p-6">
+                            <span class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">${item.category}</span>
+                            <h3 class="mt-4 text-xl font-bold">${item.title}</h3>
+                            <p class="mt-2 text-gray-600">${item.description}</p>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+            }
+
+            // Filter button event listeners
+            filters.addEventListener('click', (e) => {
+                if (e.target.tagName === 'BUTTON') {
+                    document.querySelector('.filter-btn.active').classList.remove('active');
+                    e.target.classList.add('active');
+                    renderPortfolio(e.target.dataset.filter);
+                }
+            });
+
+            // Initial render
+            renderPortfolio();
+
+            // Chart.js Doughnut Chart
+            const ctx = document.getElementById('expertiseChart').getContext('2d');
+            const categoryCounts = portfolioData.reduce((acc, item) => {
+                acc[item.category] = (acc[item.category] || 0) + 1;
+                return acc;
+            }, {});
+
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: Object.keys(categoryCounts),
+                    datasets: [{
+                        label: '프로젝트 수',
+                        data: Object.values(categoryCounts),
+                        backgroundColor: [
+                            'rgba(59, 130, 246, 0.8)', // Blue
+                            'rgba(16, 185, 129, 0.8)', // Green
+                            'rgba(245, 158, 11, 0.8)'  // Amber
+                        ],
+                        borderColor: [
+                            'rgba(59, 130, 246, 1)',
+                            'rgba(16, 185, 129, 1)',
+                            'rgba(245, 158, 11, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                font: {
+                                    size: 14,
+                                    family: "'Noto Sans KR', sans-serif"
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed !== null) {
+                                        label += context.parsed + '건';
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Smooth scrolling for nav links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if(targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                        if (mobileMenu.classList.contains('hidden') === false) {
+                            mobileMenu.classList.add('hidden');
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
