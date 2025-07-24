@@ -55,6 +55,16 @@
         html {
             scroll-behavior: smooth;
         }
+        .portfolio-icon-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 192px; /* h-48 equivalent */
+            background-color: #E0F2FE; /* Light blue background for icons */
+            border-top-left-radius: 0.5rem; /* rounded-t-lg equivalent */
+            border-top-right-radius: 0.5rem; /* rounded-t-lg equivalent */
+            font-size: 4rem; /* Adjust size of pictogram */
+        }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -241,14 +251,14 @@
 
             // Portfolio Data
             const portfolioData = [
-                { title: '전국 대학생 해커톤', category: '행사', description: '전국 규모의 대학생 대상 해커톤을 주최하여 IT 인재 발굴 및 네트워킹 기회를 제공했습니다.', image: 'https://placehold.co/600x400/3B82F6/FFFFFF?text=해커톤' },
-                { title: 'S전자 AI 기술 교육', category: '교육', description: 'S전자 임직원을 대상으로 2주간 AI 기술 심화 워크샵을 진행하여 실무 역량을 강화했습니다.', image: 'https://placehold.co/600x400/10B981/FFFFFF?text=AI교육' },
-                { title: '스타트업 \'라이크코리안\' 앱 개발', category: 'SI/솔루션', description: '외국인 관광객을 위한 실시간 통역 및 여행 정보 제공 앱의 기획, 개발, 운영을 총괄했습니다.', image: 'https://placehold.co/600x400/F59E0B/FFFFFF?text=앱개발' },
-                { title: '소프트웨어 마이스터고 기술 교육', category: '교육', description: '40시간 과정의 웹 풀스택 개발 교육을 통해 예비 개발자들의 기술 스택 향상에 기여했습니다.', image: 'https://placehold.co/600x400/10B981/FFFFFF?text=기술교육' },
-                { title: '핀테크 기업 SI 시스템 구축', category: 'SI/솔루션', description: '보안성과 확장성을 고려한 차세대 금융 거래 시스템을 성공적으로 구축하였습니다.', image: 'https://placehold.co/600x400/F59E0B/FFFFFF?text=SI구축' },
-                { title: '개발자 컨퍼런스 2025', category: '행사', description: '최신 기술 트렌드를 공유하고 개발자 커뮤니티 활성화를 위한 대규모 컨퍼런스를 기획 및 운영했습니다.', image: 'https://placehold.co/600x400/3B82F6/FFFFFF?text=컨퍼런스' },
-                { title: 'AI 교양 교육 프로그램', category: '교육', description: '비전공자를 위한 AI 기초 및 활용법에 대한 8시간 교양 교육을 다수 기관에서 진행했습니다.', image: 'https://placehold.co/600x400/10B981/FFFFFF?text=교양교육' },
-                { title: '물류 자동화 솔루션 개발', category: 'SI/솔루션', description: '머신러닝 기반의 재고 예측 및 자동 발주 시스템을 개발하여 물류 효율을 30% 개선했습니다.', image: 'https://placehold.co/600x400/F59E0B/FFFFFF?text=솔루션' }
+                { title: '전국 대학생 해커톤', category: '행사', description: '전국 규모의 대학생 대상 해커톤을 주최하여 IT 인재 발굴 및 네트워킹 기회를 제공했습니다.', icon: '🗓️' },
+                { title: 'S전자 AI 기술 교육', category: '교육', description: 'S전자 임직원을 대상으로 2주간 AI 기술 심화 워크샵을 진행하여 실무 역량을 강화했습니다.', icon: '📚' },
+                { title: '스타트업 \'라이크코리안\' 앱 개발', category: 'SI/솔루션', description: '외국인 관광객을 위한 실시간 통역 및 여행 정보 제공 앱의 기획, 개발, 운영을 총괄했습니다.', icon: '💻' },
+                { title: '소프트웨어 마이스터고 기술 교육', category: '교육', description: '40시간 과정의 웹 풀스택 개발 교육을 통해 예비 개발자들의 기술 스택 향상에 기여했습니다.', icon: '📚' },
+                { title: '핀테크 기업 SI 시스템 구축', category: 'SI/솔루션', description: '보안성과 확장성을 고려한 차세대 금융 거래 시스템을 성공적으로 구축하였습니다.', icon: '💻' },
+                { title: '개발자 컨퍼런스 2025', category: '행사', description: '최신 기술 트렌드를 공유하고 개발자 커뮤니티 활성화를 위한 대규모 컨퍼런스를 기획 및 운영했습니다.', icon: '🗓️' },
+                { title: 'AI 교양 교육 프로그램', category: '교육', description: '비전공자를 위한 AI 기초 및 활용법에 대한 8시간 교양 교육을 다수 기관에서 진행했습니다.', icon: '📚' },
+                { title: '물류 자동화 솔루션 개발', category: 'SI/솔루션', description: '머신러닝 기반의 재고 예측 및 자동 발주 시스템을 개발하여 물류 효율을 30% 개선했습니다.', icon: '💻' }
             ];
 
             const grid = document.getElementById('portfolio-grid');
@@ -263,7 +273,9 @@
                     const card = document.createElement('div');
                     card.className = 'portfolio-card bg-white rounded-lg shadow-md';
                     card.innerHTML = `
-                        <img src="${item.image}" alt="${item.title}" class="w-full h-48 object-cover rounded-t-lg">
+                        <div class="portfolio-icon-container">
+                            ${item.icon}
+                        </div>
                         <div class="p-6">
                             <span class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">${item.category}</span>
                             <h3 class="mt-4 text-xl font-bold">${item.title}</h3>
