@@ -76,7 +76,7 @@
                 (주)해달프로그래밍
             </a>
             <div class="hidden md:flex items-center space-x-8">
-                <a href="#work" class="nav-link font-medium pb-1">수행 프로젝트</a>
+                <a href="./references/list.html" class="nav-link font-medium pb-1">수행 프로젝트</a>
                 <a href="#business" class="nav-link font-medium pb-1">비즈니스</a>
                 <a href="#contact" class="nav-link font-medium pb-1">문의하기</a>
             </div>
@@ -86,7 +86,7 @@
         </nav>
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
-            <a href="#work" class="block py-2 text-center text-gray-700 hover:text-blue-500">수행 프로젝트</a>
+            <a href="./references/list.html" class="block py-2 text-center text-gray-700 hover:text-blue-500">수행 프로젝트</a>
             <a href="#business" class="block py-2 text-center text-gray-700 hover:text-blue-500">비즈니스</a>
             <a href="#contact" class="block py-2 text-center text-gray-700 hover:text-blue-500">문의하기</a>
         </div>
@@ -251,14 +251,14 @@
 
             // Portfolio Data
             const portfolioData = [
-                { title: '전국 대학생 해커톤', category: '행사', description: '전국 규모의 대학생 대상 해커톤을 주최하여 IT 인재 발굴 및 네트워킹 기회를 제공했습니다.', icon: '🗓️' },
-                { title: 'S전자 AI 기술 교육', category: '교육', description: 'S전자 임직원을 대상으로 2주간 AI 기술 심화 워크샵을 진행하여 실무 역량을 강화했습니다.', icon: '📚' },
-                { title: '스타트업 \'라이크코리안\' 앱 개발', category: 'SI/솔루션', description: '외국인 관광객을 위한 실시간 통역 및 여행 정보 제공 앱의 기획, 개발, 운영을 총괄했습니다.', icon: '💻' },
-                { title: '소프트웨어 마이스터고 기술 교육', category: '교육', description: '40시간 과정의 웹 풀스택 개발 교육을 통해 예비 개발자들의 기술 스택 향상에 기여했습니다.', icon: '📚' },
-                { title: '핀테크 기업 SI 시스템 구축', category: 'SI/솔루션', description: '보안성과 확장성을 고려한 차세대 금융 거래 시스템을 성공적으로 구축하였습니다.', icon: '💻' },
-                { title: '개발자 컨퍼런스 2025', category: '행사', description: '최신 기술 트렌드를 공유하고 개발자 커뮤니티 활성화를 위한 대규모 컨퍼런스를 기획 및 운영했습니다.', icon: '🗓️' },
-                { title: 'AI 교양 교육 프로그램', category: '교육', description: '비전공자를 위한 AI 기초 및 활용법에 대한 8시간 교양 교육을 다수 기관에서 진행했습니다.', icon: '📚' },
-                { title: '물류 자동화 솔루션 개발', category: 'SI/솔루션', description: '머신러닝 기반의 재고 예측 및 자동 발주 시스템을 개발하여 물류 효율을 30% 개선했습니다.', icon: '💻' }
+                { id: 'hackathon-2025', title: '전국 대학생 해커톤', category: '행사', description: '전국 규모의 대학생 대상 해커톤을 주최하여 IT 인재 발굴 및 네트워킹 기회를 제공했습니다.', icon: '🗓️' },
+                { id: 's-electronics-ai', title: 'S전자 AI 기술 교육', category: '교육', description: 'S전자 임직원을 대상으로 2주간 AI 기술 심화 워크샵을 진행하여 실무 역량을 강화했습니다.', icon: '📚' },
+                { id: 'likekorean-app', title: '스타트업 \'라이크코리안\' 앱 개발', category: 'SI/솔루션', description: '외국인 관광객을 위한 실시간 통역 및 여행 정보 제공 앱의 기획, 개발, 운영을 총괄했습니다.', icon: '💻' },
+                { id: 'meister-fullstack', title: '소프트웨어 마이스터고 기술 교육', category: '교육', description: '40시간 과정의 웹 풀스택 개발 교육을 통해 예비 개발자들의 기술 스택 향상에 기여했습니다.', icon: '📚' },
+                { id: 'fintech-si', title: '핀테크 기업 SI 시스템 구축', category: 'SI/솔루션', description: '보안성과 확장성을 고려한 차세대 금융 거래 시스템을 성공적으로 구축하였습니다.', icon: '💻' },
+                { id: 'devcon-2025', title: '개발자 컨퍼런스 2025', category: '행사', description: '최신 기술 트렌드를 공유하고 개발자 커뮤니티 활성화를 위한 대규모 컨퍼런스를 기획 및 운영했습니다.', icon: '🗓️' },
+                { id: 'ai-liberal-arts', title: 'AI 교양 교육 프로그램', category: '교육', description: '비전공자를 위한 AI 기초 및 활용법에 대한 8시간 교양 교육을 다수 기관에서 진행했습니다.', icon: '📚' },
+                { id: 'logistics-automation', title: '물류 자동화 솔루션 개발', category: 'SI/솔루션', description: '머신러닝 기반의 재고 예측 및 자동 발주 시스템을 개발하여 물류 효율을 30% 개선했습니다.', icon: '💻' }
             ];
 
             const grid = document.getElementById('portfolio-grid');
@@ -270,8 +270,9 @@
                 const filteredData = filter === 'all' ? portfolioData : portfolioData.filter(item => item.category === filter);
                 
                 filteredData.forEach(item => {
-                    const card = document.createElement('div');
-                    card.className = 'portfolio-card bg-white rounded-lg shadow-md';
+                    const card = document.createElement('a');
+                    card.href = `./references/detail.html?id=${item.id}&category=${getCategoryKey(item.category)}`;
+                    card.className = 'portfolio-card bg-white rounded-lg shadow-md block';
                     card.innerHTML = `
                         <div class="portfolio-icon-container">
                             ${item.icon}
@@ -280,6 +281,12 @@
                             <span class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">${item.category}</span>
                             <h3 class="mt-4 text-xl font-bold">${item.title}</h3>
                             <p class="mt-2 text-gray-600">${item.description}</p>
+                            <div class="mt-4 flex items-center text-blue-500">
+                                <span class="text-sm">자세히 보기</span>
+                                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                </svg>
+                            </div>
                         </div>
                     `;
                     grid.appendChild(card);
@@ -294,6 +301,16 @@
                     renderPortfolio(e.target.dataset.filter);
                 }
             });
+
+            // Helper function to get category key from Korean name
+            function getCategoryKey(koreanCategory) {
+                const categoryMap = {
+                    '행사': 'events',
+                    '교육': 'education',
+                    'SI/솔루션': 'projects'
+                };
+                return categoryMap[koreanCategory] || 'projects';
+            }
 
             // Initial render
             renderPortfolio();

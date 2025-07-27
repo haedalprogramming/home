@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>프로젝트 상세 | (주)해달프로그래밍</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap">
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #F9FAFB;
+            color: #1F2937;
+        }
+        .nav-link {
+            transition: color 0.3s, border-bottom-color 0.3s;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #3B82F6;
+            border-bottom-color: #3B82F6;
+        }
+        .tag {
+            transition: background-color 0.3s;
+        }
+        .tag:hover {
+            background-color: #3B82F6;
+            color: white;
+        }
+        .section-title {
+            position: relative;
+            padding-left: 20px;
+        }
+        .section-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 24px;
+            background-color: #3B82F6;
+        }
+        .image-gallery {
+            display: grid;
+            gap: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+        .image-item {
+            aspect-ratio: 16/9;
+            background-color: #E5E7EB;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .image-item:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <!-- Header & Navigation -->
+    <header class="bg-white/80 backdrop-blur-sm sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="../index.html" class="text-2xl font-bold text-gray-800">
+                (주)해달프로그래밍
+            </a>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="../index.html#work" class="nav-link font-medium pb-1">수행 프로젝트</a>
+                <a href="../index.html#business" class="nav-link font-medium pb-1">비즈니스</a>
+                <a href="../index.html#contact" class="nav-link font-medium pb-1">문의하기</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Breadcrumb -->
+        <div class="container mx-auto px-6 py-4">
+            <nav class="flex items-center space-x-2 text-sm text-gray-600">
+                <a href="../index.html" class="hover:text-blue-500">홈</a>
+                <span>/</span>
+                <a href="./list.html" class="hover:text-blue-500" id="category-link">카테고리</a>
+                <span>/</span>
+                <span class="text-gray-800" id="project-title-breadcrumb">프로젝트명</span>
+            </nav>
+        </div>
+
+        <!-- Project Hero Section -->
+        <section class="py-12 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="max-w-4xl mx-auto">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="inline-block bg-blue-100 text-blue-800 text-sm font-semibold px-3 py-1 rounded-full" id="project-category">카테고리</span>
+                        <span class="text-gray-500" id="project-date">날짜</span>
+                    </div>
+                    <h1 class="text-4xl font-bold mb-6" id="project-title">프로젝트 제목</h1>
+                    <p class="text-xl text-gray-600" id="project-summary">프로젝트 요약</p>
+                    
+                    <!-- Project Metadata -->
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12 p-6 bg-gray-50 rounded-lg">
+                        <div>
+                            <p class="text-sm text-gray-500 mb-1">클라이언트</p>
+                            <p class="font-medium" id="project-client">-</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-500 mb-1">진행 기간</p>
+                            <p class="font-medium" id="project-duration">-</p>
+                        </div>
+                        <div id="project-meta-3">
+                            <p class="text-sm text-gray-500 mb-1">참여 인원</p>
+                            <p class="font-medium" id="project-participants">-</p>
+                        </div>
+                        <div id="project-meta-4">
+                            <p class="text-sm text-gray-500 mb-1">팀 규모</p>
+                            <p class="font-medium" id="project-team-size">-</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Project Details -->
+        <section class="py-12">
+            <div class="container mx-auto px-6">
+                <div class="max-w-4xl mx-auto space-y-12">
+                    
+                    <!-- Overview Section -->
+                    <div>
+                        <h2 class="section-title text-2xl font-bold mb-6">프로젝트 개요</h2>
+                        <p class="text-gray-700 leading-relaxed" id="project-overview">프로젝트 개요 내용</p>
+                    </div>
+
+                    <!-- Dynamic Sections Container -->
+                    <div id="dynamic-sections"></div>
+
+                    <!-- Images Section -->
+                    <div id="images-section" class="hidden">
+                        <h2 class="section-title text-2xl font-bold mb-6">프로젝트 이미지</h2>
+                        <div class="image-gallery" id="project-images">
+                            <!-- Images will be dynamically inserted here -->
+                        </div>
+                    </div>
+
+                    <!-- Testimonials Section -->
+                    <div id="testimonials-section" class="hidden">
+                        <h2 class="section-title text-2xl font-bold mb-6">고객 후기</h2>
+                        <div class="space-y-4" id="project-testimonials">
+                            <!-- Testimonials will be dynamically inserted here -->
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="py-16 bg-gray-100">
+            <div class="container mx-auto px-6 text-center">
+                <h3 class="text-2xl font-bold mb-4">이런 프로젝트를 함께 하고 싶으신가요?</h3>
+                <p class="text-gray-600 mb-8">해달프로그래밍과 함께 멋진 프로젝트를 만들어보세요.</p>
+                <a href="../index.html#contact" class="bg-blue-500 text-white font-bold py-3 px-8 rounded-full hover:bg-blue-600 transition duration-300">
+                    프로젝트 문의하기
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-10">
+        <div class="container mx-auto px-6 text-center">
+            <p>(주)해달프로그래밍 | 대표: 홍길동</p>
+            <p class="mt-2">사업자등록번호: 123-45-67890 | 주소: 서울특별시 강남구 테헤란로 123</p>
+            <p class="mt-2">&copy; 2025 Haedal Programming Inc. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script type="module">
+        import references from './data.js';
+
+        // Get project ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const projectId = urlParams.get('id');
+        const category = urlParams.get('category');
+
+        // Find the project
+        let project = null;
+        if (category && references[category]) {
+            project = references[category].find(p => p.id === projectId);
+        }
+
+        if (!project) {
+            window.location.href = './list.html';
+        }
+
+        // Update page title
+        document.title = `${project.title} | (주)해달프로그래밍`;
+
+        // Update breadcrumb
+        document.getElementById('category-link').textContent = project.category;
+        document.getElementById('category-link').href = `./list.html?category=${category}`;
+        document.getElementById('project-title-breadcrumb').textContent = project.title;
+
+        // Update hero section
+        document.getElementById('project-category').textContent = project.category;
+        document.getElementById('project-date').textContent = project.date;
+        document.getElementById('project-title').textContent = project.title;
+        document.getElementById('project-summary').textContent = project.summary;
+        document.getElementById('project-overview').textContent = project.overview;
+
+        // Update metadata
+        document.getElementById('project-client').textContent = project.client;
+        document.getElementById('project-duration').textContent = project.duration;
+
+        // Update conditional metadata based on category
+        if (category === 'events' || category === 'education') {
+            document.getElementById('project-participants').textContent = project.participants;
+            document.getElementById('project-meta-4').style.display = 'none';
+        } else {
+            document.getElementById('project-team-size').textContent = project.teamSize;
+            document.getElementById('project-meta-3').style.display = 'none';
+        }
+
+        // Render dynamic sections
+        const dynamicSections = document.getElementById('dynamic-sections');
+
+        // Render sections based on category
+        if (category === 'events') {
+            // Objectives
+            if (project.objectives) {
+                dynamicSections.innerHTML += `
+                    <div>
+                        <h2 class="section-title text-2xl font-bold mb-6">주요 목표</h2>
+                        <ul class="space-y-2">
+                            ${project.objectives.map(obj => `<li class="flex items-start"><span class="text-blue-500 mr-2">•</span><span>${obj}</span></li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+            }
+
+            // Process
+            if (project.process) {
+                dynamicSections.innerHTML += `
+                    <div>
+                        <h2 class="section-title text-2xl font-bold mb-6">진행 과정</h2>
+                        <ol class="space-y-3">
+                            ${project.process.map((step, idx) => `<li class="flex items-start"><span class="text-blue-500 font-bold mr-3">${idx + 1}.</span><span>${step}</span></li>`).join('')}
+                        </ol>
+                    </div>
+                `;
+            }
+
+            // Results
+            if (project.results) {
+                dynamicSections.innerHTML += `
+                    <div>
+                        <h2 class="section-title text-2xl font-bold mb-6">주요 성과</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            ${project.results.map(result => `
+                                <div class="bg-blue-50 p-4 rounded-lg">
+                                    <p class="text-gray-700">${result}</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Technologies
+            if (project.technologies) {
+                dynamicSections.innerHTML += `
+                    <div>
+                        <h2 class="section-title text-2xl font-bold mb-6">사용 기술</h2>
+                        <div class="flex flex-wrap gap-2">
+                            ${project.technologies.map(tech => `<span class="tag bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm">${tech}</span>`).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+        } else if (category === 'education') {
+            // Objectives
+            if (project.objectives) {
+                dynamicSections.innerHTML += `
+                    <div>
+                        <h2 class="section-title text-2xl font-bold mb-6">교육 목표</h2>
+                        <ul class="space-y-2">
+                            ${project.objectives.map(obj => `<li class="flex items-start"><span class="text-blue-500 mr-2">•</span><span>${obj}</span></li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+            }
+
+            // Curriculum
+            if (project.curriculum) {
+                dynamicSections.innerHTML += `
+                    <div>
+                        <h2 class="section-title text-2xl font-bold mb-6">교육 과정</h2>
+                        <ol class="space-y-3">
+                            ${project.curriculum.map((item, idx) => `<li class="flex items-start"><span class="text-blue-500 font-bold mr-3">${idx + 1}.</span><span>${item}</span></li>`).join('')}
+                        </ol>
+                    </div>
+                `;
+            }
+
+            // Results
+            if (project.results) {
+                dynamicSections.innerHTML += `
+                    <div>
+                        <h2 class="section-title text-2xl font-bold mb-6">교육 성과</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            ${project.results.map(result => `
+                                <div class="bg-green-50 p-4 rounded-lg">
+                                    <p class="text-gray-700">${result}</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Technologies
+            if (project.technologies) {
+                dynamicSections.innerHTML += `
+                    <div>
+                        <h2 class="section-title text-2xl font-bold mb-6">교육 기술 스택</h2>
+                        <div class="flex flex-wrap gap-2">
+                            ${project.technologies.map(tech => `<span class="tag bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm">${tech}</span>`).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Institutions (for AI liberal arts)
+            if (project.institutions) {
+                dynamicSections.innerHTML += `
+                    <div>
+                        <h2 class="section-title text-2xl font-bold mb-6">교육 진행 기관</h2>
+                        <div class="flex flex-wrap gap-3">
+                            ${project.institutions.map(inst => `<span class="bg-gray-100 px-4 py-2 rounded-lg">${inst}</span>`).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+        } else if (category === 'projects') {
+            // Features
+            if (project.features) {
+                dynamicSections.innerHTML += `
+                    <div>
+                        <h2 class="section-title text-2xl font-bold mb-6">주요 기능</h2>
+                        <ul class="space-y-2">
+                            ${project.features.map(feat => `<li class="flex items-start"><span class="text-blue-500 mr-2">•</span><span>${feat}</span></li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+            }
+
+            // Tech Stack
+            if (project.techStack) {
+                dynamicSections.innerHTML += `
+                    <div>
+                        <h2 class="section-title text-2xl font-bold mb-6">기술 스택</h2>
+                        <div class="space-y-4">
+                            ${Object.entries(project.techStack).map(([category, techs]) => `
+                                <div>
+                                    <h3 class="font-medium text-lg capitalize mb-2">${category}</h3>
+                                    <div class="flex flex-wrap gap-2">
+                                        ${techs.map(tech => `<span class="tag bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm">${tech}</span>`).join('')}
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Results
+            if (project.results) {
+                dynamicSections.innerHTML += `
+                    <div>
+                        <h2 class="section-title text-2xl font-bold mb-6">프로젝트 성과</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            ${project.results.map(result => `
+                                <div class="bg-blue-50 p-4 rounded-lg">
+                                    <p class="text-gray-700">${result}</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Challenges or Security
+            if (project.challenges) {
+                dynamicSections.innerHTML += `
+                    <div>
+                        <h2 class="section-title text-2xl font-bold mb-6">기술적 도전 과제</h2>
+                        <ul class="space-y-2">
+                            ${project.challenges.map(chal => `<li class="flex items-start"><span class="text-blue-500 mr-2">•</span><span>${chal}</span></li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+            }
+
+            if (project.security) {
+                dynamicSections.innerHTML += `
+                    <div>
+                        <h2 class="section-title text-2xl font-bold mb-6">보안 및 인증</h2>
+                        <ul class="space-y-2">
+                            ${project.security.map(sec => `<li class="flex items-start"><span class="text-blue-500 mr-2">✓</span><span>${sec}</span></li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+            }
+
+            if (project.innovations) {
+                dynamicSections.innerHTML += `
+                    <div>
+                        <h2 class="section-title text-2xl font-bold mb-6">혁신 포인트</h2>
+                        <ul class="space-y-2">
+                            ${project.innovations.map(inn => `<li class="flex items-start"><span class="text-blue-500 mr-2">•</span><span>${inn}</span></li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+            }
+        }
+
+        // Render images if available
+        if (project.images && project.images.length > 0) {
+            document.getElementById('images-section').classList.remove('hidden');
+            const imagesContainer = document.getElementById('project-images');
+            imagesContainer.innerHTML = project.images.map(img => `
+                <div class="image-item">
+                    <p class="text-gray-500">${img.caption}</p>
+                </div>
+            `).join('');
+        }
+
+        // Render testimonials if available
+        if (project.testimonials && project.testimonials.length > 0) {
+            document.getElementById('testimonials-section').classList.remove('hidden');
+            const testimonialsContainer = document.getElementById('project-testimonials');
+            testimonialsContainer.innerHTML = project.testimonials.map(test => `
+                <div class="bg-gray-50 p-6 rounded-lg">
+                    <p class="text-gray-700 italic mb-4">"${test.content}"</p>
+                    <p class="text-sm text-gray-600">- ${test.name}</p>
+                </div>
+            `).join('');
+        }
+    </script>
+</body>
+</html>
