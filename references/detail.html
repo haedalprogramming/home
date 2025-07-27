@@ -7,25 +7,31 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap">
     <style>
+        :root {
+            --dark-gray: #3d3d3d;
+            --gray: #6b6b6b;
+            --light-gray: #d9d9d9;
+            --yellow: #ffd506;
+        }
         body {
             font-family: 'Noto Sans KR', sans-serif;
             background-color: #F9FAFB;
-            color: #1F2937;
+            color: var(--dark-gray);
         }
         .nav-link {
             transition: color 0.3s, border-bottom-color 0.3s;
             border-bottom: 2px solid transparent;
         }
         .nav-link:hover, .nav-link.active {
-            color: #3B82F6;
-            border-bottom-color: #3B82F6;
+            color: var(--yellow);
+            border-bottom-color: var(--yellow);
         }
         .tag {
             transition: background-color 0.3s;
         }
         .tag:hover {
-            background-color: #3B82F6;
-            color: white;
+            background-color: var(--yellow);
+            color: var(--dark-gray);
         }
         .section-title {
             position: relative;
@@ -39,7 +45,7 @@
             transform: translateY(-50%);
             width: 4px;
             height: 24px;
-            background-color: #3B82F6;
+            background-color: var(--yellow);
         }
         .image-gallery {
             display: grid;
@@ -82,9 +88,9 @@
         <!-- Breadcrumb -->
         <div class="container mx-auto px-6 py-4">
             <nav class="flex items-center space-x-2 text-sm text-gray-600">
-                <a href="../index.html" class="hover:text-blue-500">홈</a>
+                <a href="../index.html" class="hover:text-yellow-400">홈</a>
                 <span>/</span>
-                <a href="./list.html" class="hover:text-blue-500" id="category-link">카테고리</a>
+                <a href="./list.html" class="hover:text-yellow-400" id="category-link">카테고리</a>
                 <span>/</span>
                 <span class="text-gray-800" id="project-title-breadcrumb">프로젝트명</span>
             </nav>
@@ -95,7 +101,7 @@
             <div class="container mx-auto px-6">
                 <div class="max-w-4xl mx-auto">
                     <div class="flex items-center gap-4 mb-6">
-                        <span class="inline-block bg-blue-100 text-blue-800 text-sm font-semibold px-3 py-1 rounded-full" id="project-category">카테고리</span>
+                        <span class="inline-block bg-yellow-100 text-yellow-800 text-sm font-semibold px-3 py-1 rounded-full" id="project-category">카테고리</span>
                         <span class="text-gray-500" id="project-date">날짜</span>
                     </div>
                     <h1 class="text-4xl font-bold mb-6" id="project-title">프로젝트 제목</h1>
@@ -171,7 +177,7 @@
             <div class="container mx-auto px-6 text-center">
                 <h3 class="text-2xl font-bold mb-4">이런 프로젝트를 함께 하고 싶으신가요?</h3>
                 <p class="text-gray-600 mb-8">해달프로그래밍과 함께 멋진 프로젝트를 만들어보세요.</p>
-                <a href="../index.html#contact" class="bg-blue-500 text-white font-bold py-3 px-8 rounded-full hover:bg-blue-600 transition duration-300">
+                <a href="../index.html#contact" class="font-bold py-3 px-8 rounded-full transition duration-300" style="background-color: var(--yellow); color: var(--dark-gray);" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">
                     프로젝트 문의하기
                 </a>
             </div>
@@ -244,7 +250,7 @@
                     <div class="mb-12">
                         <h2 class="section-title text-2xl font-bold mb-6">주요 목표</h2>
                         <ul class="space-y-2">
-                            ${project.objectives.map(obj => `<li class="flex items-start"><span class="text-blue-500 mr-2">•</span><span>${obj}</span></li>`).join('')}
+                            ${project.objectives.map(obj => `<li class="flex items-start"><span class="mr-2" style="color: var(--yellow);">•</span><span>${obj}</span></li>`).join('')}
                         </ul>
                     </div>
                 `;
@@ -256,7 +262,7 @@
                     <div class="mb-12">
                         <h2 class="section-title text-2xl font-bold mb-6">진행 과정</h2>
                         <ol class="space-y-3">
-                            ${project.process.map((step, idx) => `<li class="flex items-start"><span class="text-blue-500 font-bold mr-3">${idx + 1}.</span><span>${step}</span></li>`).join('')}
+                            ${project.process.map((step, idx) => `<li class="flex items-start"><span class="font-bold mr-3" style="color: var(--yellow);">${idx + 1}.</span><span>${step}</span></li>`).join('')}
                         </ol>
                     </div>
                 `;
@@ -269,7 +275,7 @@
                         <h2 class="section-title text-2xl font-bold mb-6">주요 성과</h2>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             ${project.results.map(result => `
-                                <div class="bg-blue-50 p-4 rounded-lg">
+                                <div class="bg-yellow-50 p-4 rounded-lg">
                                     <p class="text-gray-700">${result}</p>
                                 </div>
                             `).join('')}
@@ -296,7 +302,7 @@
                     <div class="mb-12">
                         <h2 class="section-title text-2xl font-bold mb-6">교육 목표</h2>
                         <ul class="space-y-2">
-                            ${project.objectives.map(obj => `<li class="flex items-start"><span class="text-blue-500 mr-2">•</span><span>${obj}</span></li>`).join('')}
+                            ${project.objectives.map(obj => `<li class="flex items-start"><span class="mr-2" style="color: var(--yellow);">•</span><span>${obj}</span></li>`).join('')}
                         </ul>
                     </div>
                 `;
@@ -308,7 +314,7 @@
                     <div class="mb-12">
                         <h2 class="section-title text-2xl font-bold mb-6">교육 과정</h2>
                         <ol class="space-y-3">
-                            ${project.curriculum.map((item, idx) => `<li class="flex items-start"><span class="text-blue-500 font-bold mr-3">${idx + 1}.</span><span>${item}</span></li>`).join('')}
+                            ${project.curriculum.map((item, idx) => `<li class="flex items-start"><span class="font-bold mr-3" style="color: var(--yellow);">${idx + 1}.</span><span>${item}</span></li>`).join('')}
                         </ol>
                     </div>
                 `;
@@ -360,7 +366,7 @@
                     <div class="mb-12">
                         <h2 class="section-title text-2xl font-bold mb-6">주요 기능</h2>
                         <ul class="space-y-2">
-                            ${project.features.map(feat => `<li class="flex items-start"><span class="text-blue-500 mr-2">•</span><span>${feat}</span></li>`).join('')}
+                            ${project.features.map(feat => `<li class="flex items-start"><span class="mr-2" style="color: var(--yellow);">•</span><span>${feat}</span></li>`).join('')}
                         </ul>
                     </div>
                 `;
@@ -392,7 +398,7 @@
                         <h2 class="section-title text-2xl font-bold mb-6">프로젝트 성과</h2>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             ${project.results.map(result => `
-                                <div class="bg-blue-50 p-4 rounded-lg">
+                                <div class="bg-yellow-50 p-4 rounded-lg">
                                     <p class="text-gray-700">${result}</p>
                                 </div>
                             `).join('')}
@@ -407,7 +413,7 @@
                     <div class="mb-12">
                         <h2 class="section-title text-2xl font-bold mb-6">기술적 도전 과제</h2>
                         <ul class="space-y-2">
-                            ${project.challenges.map(chal => `<li class="flex items-start"><span class="text-blue-500 mr-2">•</span><span>${chal}</span></li>`).join('')}
+                            ${project.challenges.map(chal => `<li class="flex items-start"><span class="mr-2" style="color: var(--yellow);">•</span><span>${chal}</span></li>`).join('')}
                         </ul>
                     </div>
                 `;
@@ -418,7 +424,7 @@
                     <div class="mb-12">
                         <h2 class="section-title text-2xl font-bold mb-6">보안 및 인증</h2>
                         <ul class="space-y-2">
-                            ${project.security.map(sec => `<li class="flex items-start"><span class="text-blue-500 mr-2">✓</span><span>${sec}</span></li>`).join('')}
+                            ${project.security.map(sec => `<li class="flex items-start"><span class="mr-2" style="color: var(--yellow);">✓</span><span>${sec}</span></li>`).join('')}
                         </ul>
                     </div>
                 `;
@@ -429,7 +435,7 @@
                     <div class="mb-12">
                         <h2 class="section-title text-2xl font-bold mb-6">혁신 포인트</h2>
                         <ul class="space-y-2">
-                            ${project.innovations.map(inn => `<li class="flex items-start"><span class="text-blue-500 mr-2">•</span><span>${inn}</span></li>`).join('')}
+                            ${project.innovations.map(inn => `<li class="flex items-start"><span class="mr-2" style="color: var(--yellow);">•</span><span>${inn}</span></li>`).join('')}
                         </ul>
                     </div>
                 `;
@@ -447,7 +453,7 @@
                             <h3 class="text-lg font-semibold text-gray-900 mb-2">${article.title}</h3>
                             <p class="text-sm text-gray-500 mb-3">${article.source}</p>
                             <a href="${article.url}" target="_blank" rel="noopener noreferrer" 
-                               class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium">
+                               class="inline-flex items-center font-medium" style="color: var(--yellow);" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
                                 기사 읽기
                                 <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
