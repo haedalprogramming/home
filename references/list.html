@@ -140,6 +140,14 @@
                 filteredData = references[filter] || [];
             }
 
+            // Sort by date (latest first)
+            filteredData = filteredData.sort((a, b) => {
+                // Convert date strings like "2025년 3월" to comparable format
+                const dateA = a.date.replace(/년|월/g, '-').replace(/-$/, '');
+                const dateB = b.date.replace(/년|월/g, '-').replace(/-$/, '');
+                return new Date(dateB) - new Date(dateA);
+            });
+
             if (filteredData.length === 0) {
                 noResults.classList.remove('hidden');
                 return;

@@ -36,6 +36,10 @@ const references = {
         { caption: '멘토링 세션', url: '#' },
         { caption: '팀별 개발 현장', url: '#' },
         { caption: '시상식', url: '#' }
+      ],
+      articles: [
+        { title: '전국 대학생 해커톤 성료... 혁신 아이디어 200개 팀 참가', url: 'https://example.com/hackathon-news1', source: '테크뉴스' },
+        { title: '해달프로그래밍 주최 해커톤, 창업 연계 프로그램 주목', url: 'https://example.com/hackathon-news2', source: '스타트업데일리' }
       ]
     },
     {

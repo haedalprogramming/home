@@ -138,6 +138,14 @@
                     <!-- Dynamic Sections Container -->
                     <div id="dynamic-sections"></div>
 
+                    <!-- Articles Section -->
+                    <div id="articles-section" class="hidden mb-12">
+                        <h2 class="section-title text-2xl font-bold mb-6">관련 기사</h2>
+                        <div class="space-y-4" id="project-articles">
+                            <!-- Articles will be populated here -->
+                        </div>
+                    </div>
+
                     <!-- Images Section -->
                     <div id="images-section" class="hidden">
                         <h2 class="section-title text-2xl font-bold mb-6">프로젝트 이미지</h2>
@@ -426,6 +434,29 @@
                     </div>
                 `;
             }
+        }
+
+        // Render articles if available
+        if (project.articles && project.articles.length > 0) {
+            document.getElementById('articles-section').classList.remove('hidden');
+            const articlesContainer = document.getElementById('project-articles');
+            articlesContainer.innerHTML = project.articles.map(article => `
+                <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex items-start justify-between">
+                        <div class="flex-1">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2">${article.title}</h3>
+                            <p class="text-sm text-gray-500 mb-3">${article.source}</p>
+                            <a href="${article.url}" target="_blank" rel="noopener noreferrer" 
+                               class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium">
+                                기사 읽기
+                                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
         }
 
         // Render images if available
