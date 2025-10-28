@@ -1,39 +1,121 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+    <!-- 
+    =====================================================
+    해달프로그래밍 공식 홈페이지
+    =====================================================
+    
+    기업명: (주)해달프로그래밍
+    슬로건: 기술로 가치를, 교육으로 미래를
+    
+    주요 기능:
+    - 반응형 디자인 (모바일/태블릿/데스크탑)
+    - 포트폴리오 필터링 시스템
+    - Chart.js를 활용한 데이터 시각화
+    - reCAPTCHA v2 적용된 문의 폼
+    - Zapier 연동 자동 문의 처리
+    
+    기술 스택:
+    - HTML5, CSS3, JavaScript (ES6+)
+    - Tailwind CSS (CDN)
+    - Chart.js (도넛 차트)
+    - Google reCAPTCHA v2
+    - 환경변수 기반 설정 관리
+    
+    @author 해달프로그래밍
+    @version 1.0.0
+    @since 2025-10-28
+    -->
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>(주)해달프로그래밍 | 기술로 가치를, 교육으로 미래를</title>
+    
+    <!-- 외부 라이브러리 CDN -->
+    <!-- Tailwind CSS: 유틸리티 우선 CSS 프레임워크 -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js: 차트 생성 라이브러리 -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Google Fonts: 한글 폰트 (Noto Sans KR) -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap">
-    <!-- Chosen Palette: Calm Harmony -->
-    <!-- Application Structure Plan: A single-page application with a clear narrative flow. It starts with a strong hero section to introduce the company, followed by an interactive portfolio ('Work') to build credibility. Next, it details their core offerings ('Business') to show their capabilities, and concludes with a clear call-to-action ('Contact'). This structure guides the user from awareness to engagement logically. The portfolio is filterable to allow users to explore specific areas of interest without information overload. -->
-    <!-- Visualization & Content Choices: 
-        - Report Info: Portfolio of projects (Events, Education, SI). Goal: Organize & Showcase. Viz/Method: Interactive card grid. Interaction: Category filtering. Justification: Allows users to easily find relevant work examples. Library/Method: Vanilla JS & Tailwind.
-        - Report Info: Spectrum of services. Goal: Inform & Overview. Viz/Method: Doughnut Chart. Interaction: Hover to see details. Justification: Provides a quick, engaging visual summary of company experience. Library/Method: Chart.js (Canvas).
-        - Report Info: Core business offerings. Goal: Inform & Explain. Viz/Method: Thematic content cards. Interaction: Static display. Justification: Clearly separates and explains distinct service lines. Library/Method: HTML & Tailwind.
-        - CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    
+    <!-- Google reCAPTCHA v2 스크립트 -->
+    <!-- 스팸 방지를 위한 로봇 검증 시스템 -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    
+    <!-- 환경변수 설정 스크립트 -->
+    <!-- 빌드 시점에 실제 API 키가 주입되는 설정 파일 -->
+    <script src="./config.js"></script>
+    <!-- 
+    =====================================================
+    디자인 시스템 및 스타일 정의
+    =====================================================
+    
+    컬러 팔레트: "Calm Harmony"
+    - 주색상: 옐로우 (#ffd506) - 브랜드 액센트
+    - 회색 계열: 다크/일반/라이트 그레이
+    - 배경: 연한 회색 (#F9FAFB)
+    
+    반응형 디자인:
+    - 모바일 우선 접근법
+    - md: 768px 이상 (태블릿)
+    - lg: 1024px 이상 (데스크탑)
+    -->
+    
+    <!-- 애플리케이션 구조 설계 계획 -->
+    <!-- 
+    단일 페이지 애플리케이션(SPA) 구조:
+    1. Hero Section: 회사 소개 및 강력한 첫인상
+    2. Work Section: 포트폴리오 (신뢰성 구축)
+    3. Business Section: 핵심 서비스 (역량 소개)
+    4. Contact Section: 문의 폼 (행동 유도)
+    
+    상호작용 요소:
+    - 포트폴리오 카테고리 필터링
+    - 프로젝트 경험 도넛 차트
+    - reCAPTCHA 검증된 문의 폼
+    -->
+    
+    <!-- 
+    데이터 시각화 및 콘텐츠 전략:
+    - 포트폴리오: 인터랙티브 카드 그리드 + 카테고리 필터
+    - 서비스 스펙트럼: 도넛 차트 (Chart.js)
+    - 비즈니스 소개: 테마별 콘텐츠 카드
+    
+    기술적 제약:
+    - SVG 그래픽 사용 안함
+    - Mermaid.js 사용 안함
+    - 순수 HTML, CSS, JavaScript 및 Tailwind CSS 사용
+    -->
+    
     <style>
+        /* CSS 커스텀 속성을 통한 컬러 시스템 정의 */
         :root {
-            --dark-gray: #3d3d3d;
-            --gray: #6b6b6b;
-            --light-gray: #d9d9d9;
-            --yellow: #ffd506;
+            --dark-gray: #3d3d3d;    /* 주요 텍스트 색상 */
+            --gray: #6b6b6b;         /* 보조 텍스트 색상 */
+            --light-gray: #d9d9d9;   /* 배경 및 구분선 */
+            --yellow: #ffd506;       /* 브랜드 액센트 컬러 */
         }
+        
+        /* 전역 폰트 및 배경 설정 */
         body {
             font-family: 'Noto Sans KR', sans-serif;
-            background-color: #F9FAFB; /* Light Gray Background */
-            color: var(--dark-gray); /* Dark Gray Text */
+            background-color: #F9FAFB; /* 연한 회색 배경 */
+            color: var(--dark-gray);   /* 다크 그레이 텍스트 */
         }
+        
+        /* 내비게이션 링크 호버 효과 */
         .nav-link {
             transition: color 0.3s, border-bottom-color 0.3s;
             border-bottom: 2px solid transparent;
         }
         .nav-link:hover, .nav-link.active {
-            color: var(--yellow); /* Accent Yellow */
+            color: var(--yellow);
             border-bottom-color: var(--yellow);
         }
+        
+        /* 포트폴리오 필터 버튼 스타일 */
         .filter-btn {
             transition: background-color 0.3s, color 0.3s;
         }
@@ -41,6 +123,8 @@
             background-color: var(--yellow);
             color: var(--dark-gray);
         }
+        
+        /* 포트폴리오 카드 호버 효과 */
         .portfolio-card {
             transition: transform 0.3s, box-shadow 0.3s;
             overflow: hidden;
@@ -49,6 +133,8 @@
             transform: translateY(-5px);
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         }
+        
+        /* Chart.js 차트 컨테이너 설정 */
         .chart-container {
             position: relative;
             width: 100%;
@@ -58,18 +144,22 @@
             height: 350px;
             max-height: 400px;
         }
+        
+        /* 부드러운 스크롤 효과 */
         html {
             scroll-behavior: smooth;
         }
+        
+        /* 포트폴리오 아이콘 컨테이너 */
         .portfolio-icon-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 192px; /* h-48 equivalent */
-            background-color: #E0F2FE; /* Light blue background for icons */
-            border-top-left-radius: 0.5rem; /* rounded-t-lg equivalent */
-            border-top-right-radius: 0.5rem; /* rounded-t-lg equivalent */
-            font-size: 4rem; /* Adjust size of pictogram */
+            height: 192px; /* Tailwind의 h-48 상당 */
+            background-color: #E0F2FE; /* 연한 파란색 배경 */
+            border-top-left-radius: 0.5rem;
+            border-top-right-radius: 0.5rem;
+            font-size: 4rem; /* 이모지 아이콘 크기 */
         }
     </style>
 </head>
@@ -191,8 +281,17 @@
                     <h2 class="text-3xl md:text-4xl font-bold">문의하기</h2>
                     <p class="mt-4 text-lg text-gray-600">프로젝트 의뢰, 교육 협력, 기타 문의사항이 있으시면 언제든지 연락주세요.</p>
                 </div>
+                
+                <!-- 문의 폼 컨테이너 -->
                 <div class="max-w-3xl mx-auto bg-white p-8 md:p-12 rounded-xl shadow-lg">
+                    <!-- 
+                    문의 폼: reCAPTCHA v2와 Zapier 연동
+                    - 스팸 방지를 위한 reCAPTCHA 검증
+                    - Zapier 웹훅을 통한 자동 이메일 전송
+                    - 환경변수 기반 설정으로 보안 강화
+                    -->
                     <form id="contact-form">
+                        <!-- 이름 및 회사/소속 입력 -->
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                             <div>
                                 <label for="name" class="block text-gray-700 font-medium mb-2">이름</label>
@@ -203,6 +302,8 @@
                                 <input type="text" id="company" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500">
                             </div>
                         </div>
+                        
+                        <!-- 이메일 및 연락처 입력 -->
                          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                             <div>
                                 <label for="email" class="block text-gray-700 font-medium mb-2">이메일</label>
@@ -213,6 +314,8 @@
                                 <input type="tel" id="phone" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500">
                             </div>
                         </div>
+                        
+                        <!-- 문의 종류 선택 -->
                         <div class="mb-6">
                              <label for="inquiry_type" class="block text-gray-700 font-medium mb-2">문의 종류</label>
                              <select id="inquiry_type" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 bg-white">
@@ -222,15 +325,29 @@
                                  <option>기타 문의</option>
                              </select>
                         </div>
+                        
+                        <!-- 문의 내용 입력 -->
                         <div class="mb-6">
                             <label for="message" class="block text-gray-700 font-medium mb-2">문의 내용</label>
                             <textarea id="message" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500" required></textarea>
                         </div>
+                        
+                        <!-- reCAPTCHA v2 위젯 (스팸 방지) -->
+                        <!-- 환경변수에서 사이트 키를 동적으로 로드하여 렌더링 -->
+                        <div class="mb-6 flex justify-center">
+                            <div class="g-recaptcha" id="recaptcha-widget"></div>
+                        </div>
+
+                        <!-- 제출 버튼 및 상태 메시지 -->
                         <div class="text-center">
-                            <button type="submit" class="font-bold py-3 px-10 rounded-full transition duration-300 text-lg" style="background-color: var(--yellow); color: var(--dark-gray);" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">
+                            <button type="submit" id="contact-submit-btn" class="font-bold py-3 px-10 rounded-full transition duration-300 text-lg" style="background-color: var(--yellow); color: var(--dark-gray);" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">
                                 문의 제출
                             </button>
                         </div>
+                        
+                        <!-- 폼 제출 상태 메시지 표시 영역 -->
+                        <!-- 성공/실패/reCAPTCHA 경고 메시지를 동적으로 표시 -->
+                        <div id="form-status" class="mt-6 text-center text-sm"></div>
                     </form>
                 </div>
             </div>
@@ -249,6 +366,24 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            // 환경변수에서 설정값 로드
+            const RECAPTCHA_SITE_KEY = window.ENV?.RECAPTCHA_SITE_KEY || 'YOUR_RECAPTCHA_V2_SITE_KEY';
+            const ZAPIER_WEBHOOK_URL = window.ENV?.ZAPIER_WEBHOOK_URL || 'YOUR_ZAPIER_WEBHOOK_URL';
+
+            // reCAPTCHA 위젯 초기화
+            function initRecaptcha() {
+                if (typeof grecaptcha !== 'undefined' && grecaptcha.render) {
+                    grecaptcha.render('recaptcha-widget', {
+                        'sitekey': RECAPTCHA_SITE_KEY
+                    });
+                } else {
+                    // reCAPTCHA 스크립트가 아직 로드되지 않은 경우 재시도
+                    setTimeout(initRecaptcha, 100);
+                }
+            }
+
+            // reCAPTCHA 초기화 실행
+            initRecaptcha();
             // Mobile Menu Toggle
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
@@ -325,12 +460,30 @@
             // Initial render
             renderPortfolio();
 
-            // Contact Form Submission
+            // 수정된 부분: Contact Form Submission 로직 전체 수정
+            // --------------------------------------------------
             const contactForm = document.getElementById('contact-form');
+            const submitButton = document.getElementById('contact-submit-btn'); // 제출 버튼
+            const formStatus = document.getElementById('form-status'); // 상태 메시지 div
+
             if (contactForm) {
                 contactForm.addEventListener('submit', async (e) => {
-                    e.preventDefault();
-                    
+                    e.preventDefault(); // 폼 기본 제출 방지
+
+                    // 1. reCAPTCHA 체크 여부 검증
+                    const recaptchaToken = grecaptcha.getResponse();
+                    if (!recaptchaToken) {
+                        // 체크박스를 선택하지 않았을 경우
+                        formStatus.textContent = '스팸 방지를 위해 "로봇이 아닙니다"를 체크해주세요.';
+                        formStatus.style.color = 'red';
+                        return; // 폼 제출 중단
+                    }
+
+                    // 2. 제출 버튼 비활성화 및 로딩 메시지
+                    submitButton.disabled = true;
+                    submitButton.innerText = '전송 중...';
+                    formStatus.textContent = ''; // 이전 상태 메시지 초기화
+
                     const formData = {
                         name: document.getElementById('name').value,
                         company: document.getElementById('company').value,
@@ -342,29 +495,37 @@
                     };
 
                     try {
-                        // Zapier Hook - CORS mode set to no-cors for GitHub Pages
-                        const response = await fetch('https://hooks.zapier.com/hooks/catch/20060834/uug3t4t/', {
+                        // 3. Zapier Hook 전송 (환경변수 사용)
+                        const response = await fetch(ZAPIER_WEBHOOK_URL, {
                             method: 'POST',
-                            mode: 'no-cors',
+                            mode: 'no-cors', // no-cors 모드 유지
                             body: JSON.stringify(formData),
                             headers: {
                                 'Content-Type': 'application/json'
                             }
                         });
 
-                        // With no-cors mode, we can't read the response status
-                        // So we assume success if no error is thrown
-                        alert('문의가 성공적으로 접수되었습니다. 빠른 시일 내에 답변드리겠습니다.');
-                        contactForm.reset();
+                        // 4. 성공 처리 (alert 대신 formStatus 사용)
+                        formStatus.textContent = '문의가 성공적으로 접수되었습니다. 빠른 시일 내에 답변드리겠습니다.';
+                        formStatus.style.color = 'green';
+                        contactForm.reset(); // 폼 리셋
+                        grecaptcha.reset(); // reCAPTCHA 위젯 리셋
                         
                     } catch (error) {
+                        // 5. 실패 처리 (alert 대신 formStatus 사용)
                         console.error('Error submitting form:', error);
-                        // Provide fallback contact method
-                        const fallbackMessage = `문의 접수 중 오류가 발생했습니다.\n\n직접 문의해주세요:\n📧 customer@haedal.io\n\n문의 내용:\n${formData.message}`;
-                        alert(fallbackMessage);
+                        const fallbackMessage = `문의 접수 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.`;
+                        formStatus.textContent = fallbackMessage;
+                        formStatus.style.color = 'red';
+                    } finally {
+                        // 6. 버튼 다시 활성화
+                        submitButton.disabled = false;
+                        submitButton.innerText = '문의 제출';
                     }
                 });
             }
+            // --------------------------------------------------
+            // (수정 끝)
 
             // Chart.js Doughnut Chart
             const ctx = document.getElementById('expertiseChart').getContext('2d');

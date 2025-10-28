@@ -1,0 +1,29 @@
+{
+  "name": "haedal-programming-home",
+  "version": "1.0.0",
+  "description": "해달프로그래밍 공식 홈페이지 - 기술로 가치를, 교육으로 미래를",
+  "main": "index.html",
+  "scripts": {
+    "build": "node build.js",
+    "dev": "live-server --port=3000",
+    "start": "npm run build"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.2",
+    "dotenv": "^16.0.0"
+  },
+  "keywords": [
+    "website", 
+    "homepage", 
+    "programming", 
+    "education", 
+    "business",
+    "haedal"
+  ],
+  "author": "해달프로그래밍",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/haedalprogramming/home"
+  }
+}
